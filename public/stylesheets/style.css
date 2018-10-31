@@ -6,3 +6,31 @@ body {
 a {
   color: #00B7FF;
 }
+
+table {
+  border-color:#ccc;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 8px;
+  padding: 8px;
+}
+
+td {
+  padding: 4px;
+}
+
+.list-item {
+  display: flex;
+  line-height: 20px;
+}
+
+.label {
+  font-weight: 600;
+  padding-right: 4px;
+}
+
+.person_container {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}

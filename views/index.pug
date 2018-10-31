@@ -1,5 +1,19 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  h1 People
+
+  each person in people
+    .person_container
+      .list-item
+        .label Name:
+        span= person.display_name
+      .list-item
+        .label Email:
+        span= person.email_address
+      .list-item
+        .label Job Title:
+        span= person.title
+
+
+
