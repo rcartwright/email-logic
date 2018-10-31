@@ -34,3 +34,7 @@ td {
   border: 1px solid #ccc;
   border-radius: 4px;
 }
+
+.char_frequency_container {
+  margin: 8px;
+}
