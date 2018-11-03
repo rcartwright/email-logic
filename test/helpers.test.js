@@ -27,11 +27,15 @@ describe.only('Helpers', function () {
         },
     ];
 
-    it('should show 16 occurences of m', function () {
+    it('should show correct amount of occurences', function () {
         const data = Helpers.getEmailCharCount(testData);
-        console.log('data', data);
+
         const objectOfM = find(data, { name: 'm' });
+        const objectOfD = find(data, { name: 'd' });
+        const objectOfAt = find(data, { name: '@' });
 
         expect(objectOfM.occurences).to.equal(16);
+        expect(objectOfD.occurences).to.equal(5);
+        expect(objectOfAt.occurences).to.equal(6);
     });
 });
