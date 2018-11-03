@@ -13,7 +13,6 @@ router.get('/', function (req, res, next) {
   })
     .then((res) => res.json())
     .then((result) => {
-      console.log('result', result);
       //return res.json(result.data);
       return res.render('index', { people: result.data });
     })

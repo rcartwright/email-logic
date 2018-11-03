@@ -5,7 +5,7 @@ const Helpers = require('../helpers');
 const expect = chai.expect;
 
 
-describe('Helpers', function () {
+describe.only('Helpers', function () {
     const testData = [
         {
             email_address: 'MickeyMouse@fakeEmail.com',
@@ -29,7 +29,7 @@ describe('Helpers', function () {
 
     it('should show 16 occurences of m', function () {
         const data = Helpers.getEmailCharCount(testData);
-        //console.log('data', data);
+        console.log('data', data);
         const objectOfM = find(data, { name: 'm' });
 
         expect(objectOfM.occurences).to.equal(16);

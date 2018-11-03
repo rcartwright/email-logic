@@ -1,13 +1,13 @@
-var { forEach, find } = require('lodash');
+var { forEach, find, toLower } = require('lodash');
 
 
 function getEmailCharCount(emails) {
     const characters = [];
 
     forEach(emails, (email) => {
-        console.log('email', email);
-        forEach(email.email_address, (character) => {
-            console.log('character', character);
+        const lowerCaseEmail = toLower(email.email_address);
+
+        forEach(lowerCaseEmail, (character) => {
             const characterDetail = find(characters, { name: character });
             if (characterDetail !== undefined) {
                 characterDetail.occurences = characterDetail.occurences + 1;
