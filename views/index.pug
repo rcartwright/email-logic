@@ -1,34 +1,33 @@
 extends layout
 
 block content
-  h1 People
+  .list-item
+    .people_container 
+      h1 People
+      each person in people
+        .person_container
+          .list-item
+            .label Name:
+            span= person.display_name
+          .list-item
+            .label Email:
+            span= person.email_address
+          .list-item
+            .label Job Title:
+            span= person.title
 
-  each person in people
-    .person_container
-      .list-item
-        .label Name:
-        span= person.display_name
-      .list-item
-        .label Email:
-        span= person.email_address
-      .list-item
-        .label Job Title:
-        span= person.title
-
-      .char_frequency_container
-        h2 Character Frequency
-        table
-          tr 
-            td Character
-            td Count
+    .char_frequency_container
+      h1 Character Frequency
+      table
+        tr 
+          td Character
+          td Count
+        each characterDetail in characterDetails
           tr
-            td M
-            td 5
-          tr
-            td A
-            td 2
+            td= characterDetail.name
+            td= characterDetail.occurrences
 
-      
+
 
 
 

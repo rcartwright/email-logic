@@ -1,6 +1,7 @@
 body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-color: #fafafa;
 }
 
 a {
@@ -11,8 +12,9 @@ table {
   border-color:#ccc;
   border-width: 1px;
   border-style: solid;
-  border-radius: 8px;
+  border-radius: 4px;
   padding: 8px;
+  background-color: #fff;
 }
 
 td {
@@ -33,8 +35,9 @@ td {
   padding: 8px;
   border: 1px solid #ccc;
   border-radius: 4px;
+  background-color: #fff;
 }
 
-.char_frequency_container {
-  margin: 8px;
+.people_container {
+  margin-right: 12px;
 }
