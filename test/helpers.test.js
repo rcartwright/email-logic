@@ -8,27 +8,6 @@ const expect = chai.expect;
 describe.only('Helpers', function () {
     const testData = [
         {
-            email_address: 'MickeyMouse@fakeEmail.com',
-        },
-        {
-            email_address: 'DaffyDuck@fakeEmail.com',
-        },
-        {
-            email_address: 'DonaldDuck@fakeEmail.com',
-        },
-        {
-            email_address: 'MinnieMouse@fakeEmail.com',
-        },
-        {
-            email_address: 'Goofy@fakeEmail.com',
-        },
-        {
-            email_address: 'Pluto@fakeEmail.com',
-        },
-    ];
-
-    const testData2 = [
-        {
             id: 1,
             email_address: 'MickeyMouse@fakeEmail.com',
         },
@@ -38,7 +17,7 @@ describe.only('Helpers', function () {
         },
         {
             id: 3,
-            email_address: 'Mouse123@fakeEmail.com',
+            email_address: 'MickeyM@fakeEmail.com',
         },
         {
             id: 4,
@@ -60,6 +39,14 @@ describe.only('Helpers', function () {
             id: 8,
             email_address: 'Pluto@fakeEmail.com',
         },
+        {
+            id: 9,
+            email_address: 'MickeyMouse123@differentDomain.com',
+        },
+        {
+            id: 10,
+            email_address: 'Mouse123@fakeEmail.com',
+        },
     ];
 
     it('should show correct amount of occurrences', function () {
@@ -69,15 +56,41 @@ describe.only('Helpers', function () {
         const objectOfD = find(data, { name: 'd' });
         const objectOfAt = find(data, { name: '@' });
 
-        expect(objectOfM.occurrences).to.equal(16);
-        expect(objectOfD.occurrences).to.equal(5);
-        expect(objectOfAt.occurrences).to.equal(6);
+        expect(objectOfM.occurrences).to.equal(31);
+        expect(objectOfD.occurrences).to.equal(7);
+        expect(objectOfAt.occurrences).to.equal(10);
     });
 
-    it('should show suggested emails for getSuggestedEmails function', function () {
-        const emailToCheck = "MickeyMouse@fakeEmail.com";
-        const data = Helpers.getSuggestedEmails(emailToCheck, testData2);
+    it('should show character frequency count from highest to lowest', function () {
+        const data = Helpers.getEmailCharCount(testData);
 
-        console.log(data);
+        expect(data[0].name).to.equal('m');
+        expect(data[1].name).to.equal('e');
+        expect(data[2].name).to.equal('a');
+        expect(data[3].name).to.equal('o');
+        expect(data[4].name).to.equal('i');
+    });
+
+    it('should show suggested emails & in correct order for getSuggestedEmails function', function () {
+        const emailToCheck = "MickeyMouse@fakeEmail.com";
+        const data = Helpers.getSuggestedEmails(emailToCheck, testData);
+
+        expect(data[0].email).to.equal('MickeyMouse123@fakeEmail.com');
+        expect(data[0].id).to.equal(2);
+
+        expect(data[1].email).to.equal('MickeyMouse123@differentDomain.com');
+        expect(data[1].id).to.equal(9);
+
+        expect(data[8].email).to.equal('Pluto@fakeEmail.com');
+        expect(data[8].id).to.equal(8);
+    });
+
+    it('should not contain original email in the suggested emails', function () {
+        const emailToCheck = "MickeyMouse@fakeEmail.com";
+        const data = Helpers.getSuggestedEmails(emailToCheck, testData);
+
+        const findOriginalEmail = find(data, { email: emailToCheck });
+
+        expect(findOriginalEmail).to.equal(undefined);
     });
 });

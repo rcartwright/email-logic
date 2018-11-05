@@ -10,7 +10,7 @@ function getEmailCharCount(emails) {
         forEach(lowerCaseEmail, (character) => {
             const characterDetail = find(characters, { name: character });
             if (characterDetail !== undefined) {
-                characterDetail.occurrences = characterDetail.occurences + 1;
+                characterDetail.occurrences = characterDetail.occurrences + 1;
             } else {
                 characters.push({
                     name: character,
@@ -19,36 +19,48 @@ function getEmailCharCount(emails) {
             }
         })
     })
-    return characters;
+    return orderBy(characters, ['occurrences'], ['desc']);
+}
+
+function transformEmail(email) {
+    const fullEmail = toLower(email);
+
+    const local = fullEmail.split("@")[0];
+    const domain = fullEmail.split("@")[1];
+    return { local, domain, fullEmail };
 }
 
 function getSuggestedEmails(emailToCheck, allEmails) {
     const suggestedEmails = [];
-    const lowerCaseEmailToCheck = toLower(emailToCheck);
+    const transformedEmailToCheck = transformEmail(emailToCheck);
 
     forEach(allEmails, (email) => {
         const emailObject = {
             id: email.id,
             email: email.email_address,
-            occurrences: 0,
+            weight: 0,
         };
-        const lowerCaseEmail = toLower(email.email_address);
+        const transformedEmail = transformEmail(email.email_address);
 
-        if (lowerCaseEmail !== lowerCaseEmailToCheck) {
-            forEach(lowerCaseEmail, (character) => {
-                const characterDetail = includes(lowerCaseEmailToCheck, character);
+        if (transformedEmail.fullEmail !== transformedEmailToCheck.fullEmail) {
+            forEach(transformedEmail.local, (character) => {
+                const characterDetail = includes(transformedEmailToCheck.local, character);
                 if (characterDetail) {
-                    emailObject.occurrences = emailObject.occurrences + 1;
+                    emailObject.weight = emailObject.weight + 1;
                 }
             });
-            if (emailObject.occurrences > 0) {
+
+            if (transformedEmail.domain == transformedEmailToCheck.domain) {
+                emailObject.weight = emailObject.weight + 1;
+            }
+
+            if (emailObject.weight > 0) {
                 suggestedEmails.push(emailObject);
             }
         }
-
     });
 
-    return orderBy(suggestedEmails, ['occurrences'], ['desc']);
+    return orderBy(suggestedEmails, ['weight'], ['desc']);
 }
 
 
